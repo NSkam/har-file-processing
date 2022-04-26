@@ -1,0 +1,53 @@
+body {
+	background: rgba(186, 216, 245,0.5);
+}
+
+#background-buttons {
+	display: flex;
+    flex-direction: column;
+    justify-content:center;
+    margin-left:40vw;
+    margin-right:40vw;
+    margin-top:10px;
+    border:10px solid rgb(0 158 251 / 1);
+}
+
+#upload-har {
+	border: 1px solid black;
+    background-color: rgb(67,47,175,0.8);
+    color: white;
+    padding: 6px 6px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#profile-view {
+	border: 1px solid black;
+    background-color: rgb(67,47,175,0.8);
+    color: white;
+    padding: 6px 6px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#heatmap-show {
+	border: 1px solid black;
+    background-color: rgb(67,47,175,0.8);
+    color: white;
+    padding: 6px 6px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#logout {
+	border: 1px solid black;
+    background-color: rgb(67,47,175,0.8);
+    color: white;
+    padding: 6px 6px;
+    text-align: center;
+    font-size: 16px;
+}
+#title {
+	text-align:center;
+	margin-top:15vw;
+}

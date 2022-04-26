@@ -1,0 +1,106 @@
+body {
+	background: rgba(186, 216, 245,0.5);
+}
+
+.profile_info {
+	margin-top:10%;
+	background: rgb(0 158 251 / 0.3);
+	border:3px solid rgb(0 158 251 / 1);
+    margin-right:30vw;
+    margin-left:30%;
+    padding-top:10px;
+    padding-left:4px;
+}
+#info-id {
+	text-align:center;
+	font-size:1.5vw;
+}
+
+#username {
+	text-align:center;
+	margin-right:10p
+}
+
+#password {
+	text-align:center;
+}
+
+#last_upload {
+	text-align:center;
+}
+
+#numberOfUploads {
+	text-align:center;
+}
+#username_text {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align:center;
+    font-weight:bold;
+    font-size:larger;
+    background: rgb(0 158 251 / 0);
+	border:3px solid rgb(0 158 251 / 0);
+    
+}
+
+#password_text{
+	display: block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align:center;
+    font-weight:bold;
+    font-size:larger;
+    background: rgb(0 158 251 / 0);
+	border:3px solid rgb(0 158 251 / 0);
+}
+
+#last_upload {
+	display: block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align:center;
+    
+    background: rgb(0 158 251 / 0);
+	border:3px solid rgb(0 158 251 / 0);
+}
+
+#numberOfUploads {
+	display: block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align:center;
+    background: rgb(0 158 251 / 0);
+	border:3px solid rgb(0 158 251 / 0);
+}
+
+.change_save_buttons{
+	display: flex;
+    flex-direction: row;
+	justify-content: end;
+    padding-bottom:6px;
+    padding-right:6px;
+}
+
+#chbut {
+    background-color: rgb(67,47,175,0.8);
+    color: white;
+    padding: 6px 6px;
+    text-align: center;
+    font-size: 16px;
+}
+#savebut {
+	background-color: rgb(67,47,175,0.8);
+    color: white;
+    padding: 6px 6px;
+    text-align: center;
+    font-size: 16px;
+}
+#back {
+	background-color: rgb(67,47,175,0.8);
+    color: white;
+    padding: 6px 6px;
+    text-align: center;
+    font-size: 16px;
+    margin-right:10px;
+}

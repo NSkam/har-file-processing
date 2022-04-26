@@ -1,0 +1,61 @@
+<?php
+	session_start();
+	
+?>
+
+<html>
+<head>
+	<title>Main Menu</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel = "stylesheet" type = "text/css" href = "main_menu_style.css">
+</head>
+    <body>
+		<h2 id = "title">Choose an option</h2>
+		<div id="background-buttons">
+			
+			<button onClick="window.location.href = 'http://localhost/login/upload_har.html'" id ="upload-har">Upload HAR</button>
+			<button onClick="window.location.href = 'http://localhost/login/user_profile.php'" id = "profile-view">View Profile</button>
+			<button onClick="window.location.href = 'http://localhost/login/heatmap.php'" id = "heatmap-show">Show Heatmap</button>
+			<button onClick="window.location.href = 'http://localhost/login/logout.php';" id = "logout">Logout</button>
+		</div>
+	<script>
+	var req = new XMLHttpRequest(); 
+    req.onload = function() {
+	var something = this.responseText;
+	
+    console.log(this.responseText); 
+	};
+	req.open("get", "retrieve_isp.php", true); 
+	req.send();
+	
+	//var ip = req.get();
+	var ip = "141.237.150.208";
+	
+	var endpoint = "http://ip-api.com/json/"+ip+"?fields=57856"
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var response = JSON.parse(this.responseText);
+			if(response.status !== 'success') {
+				console.log('query failed: ' + response.message);
+				return
+			}
+		}
+		
+		console.log(response.isp);
+		var provider = response.isp;
+		console.log(provider);
+		$.ajax({
+            type: "POST",
+            url: "test.php",
+            data: { isp : provider }
+		}).done(function( msg ) {
+		console.log(msg );})
+	}
+	xhr.open('GET', endpoint, true);
+	xhr.send();
+	var something = xhr.get();
+	console.log("this is " + something);
+</script> 
+</body>
+</html>

@@ -1,0 +1,105 @@
+body {
+	background: rgba(186, 216, 245,0.5);
+}
+
+.Info {
+	background: rgb(0 158 251 / 0.3);
+	border:3px solid rgb(0 158 251 / 1);
+}
+
+.Table_names{
+    border:3px solid rgb(0 158 251 / 1);
+}
+
+#Users {
+	border:3px solid rgb(0 158 251 / 1);
+	text-align:center;
+}
+
+#Methods {
+    border:3px solid rgb(0 158 251 / 1);
+	text-align:center;
+}
+
+#Status {
+	border:3px solid rgb(0 158 251 / 1);
+	text-align:center;
+}
+
+#Unique-Domains {
+	border:3px solid rgb(0 158 251 / 1);
+	text-align:center;
+}
+
+#Unique-Providers {
+	border:3px solid rgb(0 158 251 / 1);
+	text-align:center;
+}
+
+#Average-Age {
+	border:3px solid rgb(0 158 251 / 1);
+	text-align:center;
+}
+
+.Table_Values {
+    text-align:center;
+    border: 1px solid black;
+    
+}
+
+#Users-val {
+	border:3px dotted rgb(0 158 251 / 1);
+	
+}
+
+#Methods-val {
+	border:3px dotted rgb(0 158 251 / 1);
+	padding-left:20px;
+	padding-right:20px;
+}
+
+#Status-val {
+	border:3px dotted rgb(0 158 251 / 1);
+	padding-left:20px;
+	padding-right:20px;
+}
+
+#Unique-Domains-val {
+	border:3px dotted rgb(0 158 251 / 1);
+}
+
+#Unique-Providers-val {
+	border:3px dotted rgb(0 158 251 / 1);
+	padding-left:20px;
+	padding-right:20px;
+}
+#Average-Age-val {
+	border:3px dotted rgb(0 158 251 / 1);
+	text-align:start;
+	padding-left:20px;
+	padding-right:20px;
+}
+
+.back_button{
+	display: flex;
+    flex-direction: row;
+	justify-content: end;
+    padding-bottom:6px;
+    padding-right:6px;
+}
+
+#back {
+	background-color: rgb(67,47,175,0.8);
+    color: white;
+    padding: 6px 6px;
+    text-align: center;
+    font-size: 16px;
+    width:8.25%;
+       margin-left:41.75%;
+    margin-top:10px;
+}
+
+.box {
+	display:flex;
+	flex-direction:column;
+}

@@ -1,0 +1,51 @@
+<html>
+<head>
+	<link rel = "stylesheet" type "text/css" href = "login_style.css">
+	<title>Welcome! Please Login...</title> 
+</head>
+
+<body>
+	<div id="login_form">	
+		<h1>Please enter your username and password:</h1>
+		<form name="loginform" action="login_auth.php" onsubmit = "return validation()" method = "POST"> 
+			<p id = "username">
+				<label>Username:</label>
+				<input type="text" id="username_text" name="username_text"/>
+			</p>
+			<p id="password">
+				<label>Password:</label>
+				<input type="password" id="password_text" name="password_text"/>
+			</p>
+			<p>
+				<input type="submit" id="submit-login" name="login" value="Login"/>
+			</p>
+		</form>
+		<form action="http://localhost/login/register.html">
+			<input type="submit" id="submit-register" name="register" value="Register" />
+		</form>
+	</div>
+	<script>
+		function validation(){  
+			var username=document.loginform.username_text.value;
+			var password=document.loginform.password_text.value;
+			password_regex = "^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+			var matched = password.match(password-regex);
+			
+			if(username.length=="" && password.length=="") {  
+				alert("Please enter your username and password");  
+				return false;  
+			}  
+			else{  
+				if(username.length=="") {  
+					alert("Please enter your username");  
+					return false;
+					}   
+				if (password.length=="") {  
+					alert("Please enter your password");  
+					return false;  
+				}  
+			}                             
+		}		
+	</script>  
+</body>
+</html>

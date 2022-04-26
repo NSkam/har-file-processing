@@ -1,0 +1,318 @@
+<html>
+<head>
+
+	<link rel = "stylesheet" type = "text/css" href = "graph_style.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="moment.js"></script>
+	
+</head>
+<body>
+
+<div id="list1" class="dropdown-check-list" tabindex="100">
+  <span class="anchor">Select Days</span>
+  <ul class="items">
+    <li><input id = "checkbox1" type="checkbox" value="Monday" />Monday </li>
+    <li><input id = "checkbox1" type="checkbox" value="Tuesday" />Tuesday</li>
+    <li><input id = "checkbox1" type="checkbox" value="Wednesday" />Wednesday</li>
+    <li><input id = "checkbox1" type="checkbox" value="Thursday" />Thursday</li>
+    <li><input id = "checkbox1" type="checkbox" value="Friday" />Friday </li>
+    <li><input id = "checkbox1" type="checkbox" value="Saturday" />Saturday </li>
+    <li><input id = "checkbox1" type="checkbox" value="Sunday" />Sunday</li>
+  </ul>
+</div>
+
+<div id="list2" class="dropdown-check-list" tabindex="100">
+  <span class="anchor">Select Method</span>
+  <ul class="items">
+    <li><input id = "checkbox2" type="checkbox" value="POST" />POST </li>
+    <li><input id = "checkbox2" type="checkbox" value="GET" />GET</li>
+	<li><input id = "checkbox2" type="checkbox" value="OPTIONS" />OPTIONS</li>
+  </ul>
+</div>
+
+<div id="list3" class="dropdown-check-list" tabindex="100">
+  <span class="anchor">Select Content Type</span>
+  <ul class="items">
+    <li><input id = "checkbox3" type="checkbox" value="Monday" />POST </li>
+    <li><input id = "checkbox2" type="checkbox" value="Monday" />GET</li>
+  </ul>
+</div>
+
+<div id="list4" class="dropdown-check-list" tabindex="100">
+  <span class="anchor">Select Provider</span>
+  <ul class="items">
+    <li><input id = "checkbox4" type="checkbox" value="Hellas On Line S.A." />Hellas On Line S.A. </li>
+    <li><input id = "checkbox4" type="checkbox" value="Cosmote Something" />Cosmote Something</li>
+  </ul>
+</div>
+
+<button id="button" name="button"> Filter!</button>
+<canvas id="bar-chart" width="800" height="450"></canvas>
+
+<script>
+
+
+	//Ta checkboxes mas
+var checkList = document.getElementById('list1');
+checkList.getElementsByClassName('anchor')[0].onclick = function(evt) {
+  if (checkList.classList.contains('visible'))
+    checkList.classList.remove('visible');
+  else
+    checkList.classList.add('visible');
+}
+
+var checkList1 = document.getElementById('list2');
+checkList1.getElementsByClassName('anchor')[0].onclick = function(evt) {
+  if (checkList1.classList.contains('visible'))
+    checkList1.classList.remove('visible');
+  else
+    checkList1.classList.add('visible');
+}
+
+var checkList2 = document.getElementById('list3');
+checkList2.getElementsByClassName('anchor')[0].onclick = function(evt) {
+  if (checkList2.classList.contains('visible'))
+    checkList2.classList.remove('visible');
+  else
+    checkList2.classList.add('visible');
+}
+
+var checkList3 = document.getElementById('list4');
+checkList3.getElementsByClassName('anchor')[0].onclick = function(evt) {
+  if (checkList3.classList.contains('visible'))
+    checkList3.classList.remove('visible');
+  else
+    checkList3.classList.add('visible');
+}
+
+function getCheckBoxValues(checkbox){
+		var check_list = [];
+        for (var i = 0; i < checkbox.length; i++) {   
+            if(checkbox[i].checked === true){
+				check_list.push(checkbox[i].value);
+			}   
+        }   
+	return check_list;
+}
+
+$('#button').click(function()
+ {	var checkbox_list =[];
+	var checkboxes = document.querySelectorAll('input[id="checkbox1"]');
+	var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+
+	if (checkedOne) {
+			checkbox_list = getCheckBoxValues(checkboxes);
+			//console.log(checkbox_list);
+            function getData(checkbox_list) {
+				return $.ajax({
+				type: 'POST',
+				url: "getChartData.php",
+				dataType: 'json',
+				global: false,
+				async:false,
+				data: {check:"days", check_list: checkbox_list},
+				success: function(data) {
+         return data;
+     }
+	}).responseText;
+	}
+
+newData = getData(checkbox_list);
+console.log(newData);
+var newJson = JSON.parse(newData);
+newPreparedData = DataPreparation(newJson);
+console.log(newPreparedData);
+    chart.data.datasets[0].data =newPreparedData;
+    chart.update();
+
+			}
+			
+			
+	var checkboxes = document.querySelectorAll('input[id="checkbox2"]');
+	var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+	if (checkedOne) {
+           	checkbox_list = getCheckBoxValues(checkboxes);
+			//console.log(checkbox_list);
+            function getData(checkbox_list) {
+				return $.ajax({
+				type: 'POST',
+				url: "getChartData.php",
+				dataType: 'json',
+				global: false,
+				async:false,
+				data: {check:"method", check_list: checkbox_list},
+				success: function(data) {
+         return data;
+     }
+	}).responseText;
+			}
+newData = getData(checkbox_list);
+//console.log(newData);
+var newJson = JSON.parse(newData);
+newPreparedData = DataPreparation(newJson);
+    chart.data.datasets[0].data =newPreparedData;
+    chart.update();
+
+			}
+			
+			
+	var checkboxes = document.querySelectorAll('input[id="checkbox3"]');
+	var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+	if (checkedOne) {
+            alert("checked3");
+			}
+	var checkboxes = document.querySelectorAll('input[id="checkbox4"]');
+	var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+	if (checkedOne) {
+           	checkbox_list = getCheckBoxValues(checkboxes);
+			//console.log(checkbox_list);
+            function getData(checkbox_list) {
+				return $.ajax({
+				type: 'POST',
+				url: "getChartData.php",
+				dataType: 'json',
+				global: false,
+				async:false,
+				data: {check:"provider", check_list: checkbox_list},
+				success: function(data) {
+         return data;
+     }
+	}).responseText;
+			}
+newData = getData(checkbox_list);
+//console.log(newData);
+var newJson = JSON.parse(newData);
+newPreparedData = DataPreparation(newJson);
+    chart.data.datasets[0].data =newPreparedData;
+    chart.update();
+
+			}
+   
+ });
+	
+function getJson() {
+ return $.ajax({
+     type: 'POST',
+     url: "getChartData.php",
+     dataType: 'json',
+     global: false,
+     async:false,
+	 data: {check:"", check_list: [0]},
+     success: function(data) {
+         return data;
+     }
+ }).responseText;
+}
+
+var chartData = getJson();
+//console.log(chartData);
+var json = JSON.parse(chartData);
+//console.log(json[0]);
+function DataPreparation(json){
+
+	var preparedData  = [];
+	var date_list = [];
+	var count_list = [];
+
+	for (let i = 0; i< json.length; i++){
+	var day = moment(json[i].startDate, 'YYYY-MM-DDTHH:mm:ssZ');
+	var date = day.toDate();
+	//console.log(date);
+	json[i].startDate = date;
+}
+//console.log(json[0]);
+
+//Prepare the Data
+for (let x=0; x<json.length; x++){
+	//console.log(json[x].startDate.getDay());
+	switch(json[x].startDate.getDay()){
+	case 1:
+		dateStr = "Monday " + json[x].startDate.getHours();
+		break;
+	case 2:
+		dateStr = "Tuesday " + json[x].startDate.getHours();
+		break;
+	case 3:
+		dateStr = "Wednesday " + json[x].startDate.getHours();
+		break;
+	case 4:
+		dateStr = "Thursday " + json[x].startDate.getHours();
+		break;
+	case 5:
+		dateStr = "Friday " + json[x].startDate.getHours();
+		break;
+	case 6:
+		dateStr = "Saturday " + json[x].startDate.getHours();
+		break;
+	case 7:
+		dateStr = "Sunday " + json[x].startDate.getHours();
+		break;
+	}
+	if (!date_list.includes(dateStr)){
+		date_list.push(dateStr);
+		//console.log(dateStr);
+		var objToPush ={
+			startDate: dateStr,
+			timing: parseFloat(json[x].timing)
+		};
+		//console.log(objToPush);
+		preparedData.push(objToPush);
+		count_list.push(1);
+		//console.log(preparedData);
+	}
+	else{
+		var index = date_list.findIndex(function(date) { return date.match(dateStr)});
+		preparedData[index].timing = preparedData[index].timing + parseFloat(json[x].timing);
+		count_list[index] = count_list[index] + 1;
+	
+	}
+}
+
+for (let y=0;y<date_list.length;y++){
+
+	preparedData[y].timing = preparedData[y].timing/count_list[y];
+
+}
+return preparedData;
+}
+//console.log(preparedData);
+
+preparedData = DataPreparation(json);
+
+var bar = document.getElementById('bar-chart');
+
+var chart = new Chart(bar, {
+  
+  type: 'bar', 
+  data: {
+    datasets: [{
+      label: "Response Time",
+      backgroundColor: 'lightblue',
+      borderColor: 'royalblue',
+	  data: preparedData,
+	  parsing:{
+		xAxisKey: 'startDate',
+		yAxisKey: 'timing'
+	  }
+    }]
+  },
+
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Bar Chart'
+      }
+    }
+  },
+
+});
+
+</script>
+</body>
+</html>

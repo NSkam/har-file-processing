@@ -1,0 +1,54 @@
+body{   
+    background-image: url("login.jpg");
+    background-size: cover;
+}
+#login_form{  
+    border: solid gray 1px;  
+    width:25%;  
+    border-radius: 2px;  
+    margin: 100px auto;  
+    background: rgb(88 141 208 / 70%);
+    padding: 25px;  
+	color: white;
+
+} 
+
+#submit-login{
+	display:flex;
+    background-color: rgb(67,47,175,0.8);
+    color: white;
+    padding: 6px 16px;
+    text-align: center;
+    font-size: 16px;
+    margin-left:70%;
+    
+}
+
+#submit-register{
+	display:flex;
+    background-color: rgb(67,47,175,0.8);
+    color: white;
+    padding: 6px 16px;
+    text-align: center;
+    font-size: 16px;
+    margin-left:70%
+}
+
+#username{
+	font-weight: bold;
+	color: white
+}  
+
+#password{
+	font-weight: bold;
+	color: white
+}
+
+#username_text{
+	display:flex;
+}  
+
+#password_text{
+	display:flex;
+}
+

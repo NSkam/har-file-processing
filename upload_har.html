@@ -1,0 +1,203 @@
+<html>
+<head>
+    <title>User Profile</title>
+    <link rel = "stylesheet" type = "text/css" href = "upload_har.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<p>Choose a HAR file to upload:</p>
+<div class = "upload_form">
+<form name="uploadform"  method = "POST"> 
+  <input type="file" id="file_selector" name="filename" accept=".har">
+  </br></br>
+  <input type="radio" id="local" name="upload">
+  <label for="local">Scrub and save locally</label><br></br>
+  <input type="radio" id="online" name="upload">
+  <label for="online">Scrub and upload</label><br></br>
+  <input id="upload_submit_button" type="submit">
+  <button onClick="window.location.href = 'http://localhost/login/main_menu.html'" id = "back">back</button>
+   </form>
+   
+
+</div>
+
+	<script>
+	
+	document.forms['uploadform'].elements['file_selector'].onchange = function(evt) {
+    if(!window.FileReader) return;
+	
+	//pros8esa kwdika 
+	var fileInput = document.getElementById('file_selector');   
+	var filename = fileInput.files[0].name;
+	//Telos pros8hkhs kwdika
+	
+    var reader = new FileReader();
+
+    reader.onload = function(evt) {
+        if(evt.target.readyState != 2) return;
+        if(evt.target.error) {
+            alert('Error while reading file');
+            return;
+        }
+
+        filecontent = evt.target.result;
+		var har_json = JSON.parse( filecontent);
+		document.forms['uploadform'].elements['upload_submit_button'].onclick = function(evt) {
+	
+		function scrub(har_json){
+			//alert(har_json);
+		
+		delete har_json.log.version;
+		delete har_json.log.creator;
+		delete har_json.log.browser;
+		delete har_json.log.pages;
+		for (const entry in har_json.log.entries){
+			entry_content = har_json.log.entries[entry];
+			delete entry_content.pageref;
+			delete entry_content.time;
+			delete entry_content.request.cookies;
+			delete entry_content.request.httpVersion;
+			delete entry_content.request.queryString;
+			delete entry_content.request.postData;
+			delete entry_content.request.headerSize;
+			delete entry_content.request.bodySize;
+			delete entry_content.request.comment;
+			let domain = (new URL(entry_content.request.url));
+			domain = domain.hostname;
+			console.log(domain);
+			entry_content.request.url = domain;
+			for (const header in entry_content.request.headers){
+				header_content = entry_content.request.headers[header];
+				switch(header_content.name){
+					case "Content-Type":
+						continue;
+					case "Cache-Control":
+						continue;
+					case "Pragma":
+						continue;
+					case "Pxpires":
+						continue;
+					case "Age":
+						continue;
+					case "Last-Modified":
+						continue;
+					case "Host":
+						continue;
+					case "content-type":
+						continue;
+					case "cache-control":
+						continue;
+					case "pragma":
+						continue;
+					case "expires":
+						continue;
+					case "age":
+						continue;
+					case "last-modified":
+						continue;
+					case "host":
+						continue;
+					default:
+						delete entry_content.request.headers[header];
+				
+				}
+			}
+			delete entry_content.response.cookies;
+			delete entry_content.response.httpVersion;
+			delete entry_content.response.content;
+			delete entry_content.response.redirectURL;
+			delete entry_content.response.headersSize;
+			delete entry_content.response.bodySize;
+			delete entry_content.response.comment;
+			for (const header in entry_content.response.headers){
+				header_content = entry_content.response.headers[header];
+				switch(header_content.name){
+					case "Content-Type":
+						continue;
+					case "Cache-Control":
+						continue;
+					case "Pragma":
+						continue;
+					case "Expires":
+						continue;
+					case "Age":
+						continue;
+					case "Last-Modified":
+						continue;
+					case "Host":
+						continue;
+					case "content-type":
+						continue;
+					case "cache-control":
+						continue;
+					case "pragma":
+						continue;
+					case "expires":
+						continue;
+					case "age":
+						continue;
+					case "last-modified":
+						continue;
+					case "host":
+						continue;
+					default:
+						delete entry_content.response.headers[header];
+				
+				}
+			}
+			delete entry_content.cache;
+			delete entry_content.connection;
+			delete entry_content.comment;
+			delete entry_content.timings.blocked;
+			delete entry_content.timings.dns;
+			delete entry_content.timings.connect;
+			delete entry_content.timings.send;
+			delete entry_content.timings.receive;
+			delete entry_content.timings.ssl;
+			delete entry_content.timings.comment;
+			entry_content.response.headers = $.grep(entry_content.response.headers,function(n){ return n == 0 || n });
+			entry_content.request.headers = $.grep(entry_content.response.headers,function(n){ return n == 0 || n });
+			har_json.log.entries[entry] = entry_content;
+		}
+		return har_json;
+	} 
+	scrubbed_har = scrub(har_json);
+	scrubbed_har = JSON.stringify(scrubbed_har);
+	//alert(scrubbed_har);
+	
+	if (document.uploadform.local.checked){
+	downloadToFile(scrubbed_har, document.uploadform.file_selector.value, 'text/plain');
+	
+	}
+	else if(document.uploadform.online.checked){
+		$.ajax({
+            type: "POST",
+            url: "upload.php",
+            data: { har: scrubbed_har , name: filename }
+    }).done(function( msg ) {
+    console.log(msg );})
+	
+	alert('The file has been uploaded successfully.');
+	}
+	
+	};
+	
+	};
+
+    reader.readAsText(evt.target.files[0]);
+	};
+	
+	const downloadToFile = (content, filename, contentType) => {
+	const a = document.createElement('a');
+	const file = new Blob([content], {type: contentType});
+  
+	a.href= URL.createObjectURL(file);
+	a.download = filename;
+	a.click();
+
+	URL.revokeObjectURL(a.href);
+	};
+	</script>
+</body>
+</html>
